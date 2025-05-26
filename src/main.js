@@ -1,5 +1,8 @@
 import './style.css'
 import javascriptLogo from './javascript.svg'
+import typescriptLogo from './typescript.svg'
+import htmlLogo from './html.svg'
+import cssLogo from './css.svg'
 import viteLogo from '/vite.svg'
 import { setupCounter } from './counter.js'
 
@@ -10,6 +13,16 @@ document.querySelector('#app').innerHTML = `
     </a>
     <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
       <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript log" />
+    </a>
+    <a href="https://www.typescriptlang.org/" target="_blank">
+      <img src="${typescriptLogo}" class="logo Typescript" alt="TypeScript log" />
+    </a>
+        <a href="https://vite.dev" target="_blank">
+      <img src="${htmlLogo}" class="logo" alt="HTML logo" />
+    </a>
+    </a>
+        <a href="https://vite.dev" target="_blank">
+      <img src="${cssLogo}" class="logo" alt="HTML logo" />
     </a>
     <h1>Hello Vite!</h1>
     <div class="card">
@@ -22,3 +35,7 @@ document.querySelector('#app').innerHTML = `
 `
 
 setupCounter(document.querySelector('#counter'))
+
+
+
+console.log("COUCOU !")
