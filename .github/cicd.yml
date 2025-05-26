@@ -1,0 +1,14 @@
+name: super ci of the dead
+
+on:
+ push:
+  branch: 
+    - main
+
+jobs:
+  initialisation:
+    runs_on: ubuntu-latest
+    continue-on-error: false
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
