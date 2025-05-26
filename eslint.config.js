@@ -18,6 +18,8 @@ export default defineConfig([
       "max-params": ["warn", 4], // limiter le nombre de paramètre dasn les focntion 
       "complexity": ["warn", 2], // empêche trop de condition imbriquée DANS UNE FONCTION
     },
+    ignorePatterns: ["__test__/**"], // Ignorer le dossier __test__
+
   },
   { 
     files: ["**/*.{js,mjs,cjs}"], 
