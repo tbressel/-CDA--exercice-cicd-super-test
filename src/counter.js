@@ -1,3 +1,6 @@
+import {Maison} from './Maison/Maison';
+
+
 export function setupCounter(element) {
   let counter = 0
   const setCounter = (count) => {
@@ -7,6 +10,11 @@ export function setupCounter(element) {
   element.addEventListener('click', () => setCounter(counter + 1))
   setCounter(0)
 }
+
+
+const maMaison = new Maison()
+console.log(maMaison.openHouse("clé en or","un gros trou"))
+
 
 // let number1 = 12;
 // let number2 = 456;
