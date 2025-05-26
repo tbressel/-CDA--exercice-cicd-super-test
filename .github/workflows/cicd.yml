@@ -32,15 +32,6 @@ jobs:
       - name: Node audit
         uses: luisfontes19/npm-audit-action@v0.1.0
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
           only: prod
           level: moderate
-          fix: false
-          json: false
-          git-user: action-npm-audit
-          git-email: action-npm-audit@example.com
-          git-message: npm fix run from npm-audit action
-          git-pr-title: "[SECURITY] NPM audit fix"
-          git-branch: npm-audit-action
-          git-remote: origin
           project-path: .
