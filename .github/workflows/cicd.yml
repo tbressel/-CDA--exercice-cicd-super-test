@@ -1,16 +1,30 @@
 name: super ci of the dead
 
 on:
- push:
-  branches: 
-    - main
+  push:
+    branches:
+      - main
 
 jobs:
   initialisation:
     runs-on: ubuntu-latest
-    continue-on-error: false
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: liste des fichiers
-        run: ls
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Cache dependencies
+        uses: actions/cache@v4.2.3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
