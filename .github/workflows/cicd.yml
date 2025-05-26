@@ -33,6 +33,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: install
     steps:
+
+      - name: list files
+        run: ls
+        
       - name: Node audit
         uses: luisfontes19/npm-audit-action@v0.1.0
         with:
