@@ -2,12 +2,12 @@ name: super ci of the dead
 
 on:
  push:
-  branch: 
+  branches: 
     - main
 
 jobs:
   initialisation:
-    runs_on: ubuntu-latest
+    runs-on: ubuntu-latest
     continue-on-error: false
     steps:
       - name: Checkout code
