@@ -90,18 +90,21 @@ jobs:
     needs:
       - run-tests
     steps:
-      - name: Déployer via git pull depuis le VPS
-        uses: appleboy/ssh-action@v1
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_PRIVATE_KEY }}
-          port: ${{ secrets.VPS_PORT }}
-          script: |
-            cd /var/www/frontend
-            git pull origin main
-            npm install
-            npm run build
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Add GitHub.com to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+
+      - name: SSH deploy commands
+        run: |
+          ssh -i private_key -p ${{ secrets.VPS_PORT }} -o StrictHostKeyChecking=yes ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} "cd /var/www/frontend && git pull origin main"
+        env:
+          private_key: ${{ secrets.VPS_PRIVATE_KEY }}
+
 
   
   # build-frontend:
