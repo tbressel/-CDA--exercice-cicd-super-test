@@ -120,13 +120,21 @@ jobs:
           name: build-artifact
           path: ./dist
        
-      - name: Setup SSH
+      - name: Send build to VPS ~/frontend (create if not exists)
         run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.VPS_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan -H -p ${{ secrets.VPS_PORT }} ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
-       
-      - name: Deploy to VPS
-        run: |
-          rsync -avz --delete -e "ssh -i ~/.ssh/id_ed25519 -p ${{ secrets.VPS_PORT }} -o StrictHostKeyChecking=no" ./dist/ ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/var/www/html/
+          echo "${{ secrets.VPS_PRIVATE_KEY }}" > private_key
+          chmod 600 private_key
+          ssh -i private_key -p ${{ secrets.VPS_PORT }} -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} "mkdir -p ~/frontend"
+          scp -i private_key -P ${{ secrets.VPS_PORT }} -o StrictHostKeyChecking=no -r ./dist/* ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:~/frontend
+
+      - name: Optional - Execute remote SSH commands
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_PRIVATE_KEY }}
+          port: ${{ secrets.VPS_PORT }}
+          script: |
+            echo "✅ Fichiers reçus sur le VPS !"
+            # Exemple : redémarrer un service
+            # sudo systemctl restart mon-service
