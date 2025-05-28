@@ -120,12 +120,12 @@ jobs:
           name: build-artifact
           path: ./dist
        
-      - name: Send build to VPS ~/frontend (create if not exists)
+      - name: Send build to VPS /var/www/frontend (create if not exists)
         run: |
           echo "${{ secrets.VPS_PRIVATE_KEY }}" > private_key
           chmod 600 private_key
-          ssh -i private_key -p ${{ secrets.VPS_PORT }} -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} "mkdir -p ~/frontend"
-          scp -i private_key -P ${{ secrets.VPS_PORT }} -o StrictHostKeyChecking=no -r ./dist/* ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:~/frontend
+          ssh -i private_key -p ${{ secrets.VPS_PORT }} -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} "mkdir -p /var/www/frontend"
+          scp -i private_key -P ${{ secrets.VPS_PORT }} -o StrictHostKeyChecking=no -r ./dist/* ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/var/www/frontend
 
       - name: Optional - Execute remote SSH commands
         uses: appleboy/ssh-action@v1
