@@ -90,7 +90,7 @@ jobs:
     needs:
       - run-tests
     steps:
-      - name: Checkout code
+      - name: Checkout code 
         uses: actions/checkout@v4
 
       - name: Add GitHub.com to known_hosts
